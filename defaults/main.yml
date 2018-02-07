@@ -1,0 +1,33 @@
+---
+kb_major_version: "5.x"
+kb_version: "5.5.1"
+kb_version_lock: false
+kb_use_repository: true
+kb_apt_key: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+kb_apt_url: "deb https://artifacts.elastic.co/packages/{{ es_major_version }}/apt stable main"
+kb_apt_url_old: "deb http://packages.elastic.co/elasticsearch/{{ es_major_version }}/debian stable main"
+kb_start_service: true
+kb_restart_on_change: true
+kb_plugins_reinstall: false
+kb_scripts: false
+kb_templates: false
+kb_user: kibana
+kb_group: kibana
+kb_config: {}
+#Need to provide default directories
+kb_pid_dir: "/var/run/kibana"
+kb_data_dirs: "/var/lib/kibana"
+kb_log_dir: "/var/log/kibana"
+kb_allow_downgrades: false
+kb_enable_xpack: false
+#These are used for internal operations performed by ansible.
+#They do not effect the current configuration
+kb_api_host: "localhost"
+kb_api_port: 9200
+
+# Since ansible 2.2 the following variables need to be defined
+# to allow the role to be conditionally played with a when condition.
+pid_dir: ''
+log_dir: ''
+conf_dir: ''
+data_dirs: ''

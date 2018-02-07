@@ -1,0 +1,24 @@
+server.port: "{{kb_config['server.port']}}"
+server.host: "{{ansible_host}}"
+elasticsearch.url: "{{kb_config['elasticsearch.url']}}"
+kibana.index: ".kibana-6"
+#kibana.defaultAppId: "home"
+
+{% if kb_enable_xpack %}
+elasticsearch.username: "{{kb_config['elasticsearch.user']}}"
+elasticsearch.password: "{{kb_config['elasticsearch.password']}}"
+{% endif %}
+
+#server.ssl.enabled: false
+#server.ssl.certificate: /path/to/your/server.crt
+#server.ssl.key: /path/to/your/server.key
+
+#elasticsearch.ssl.certificate: /path/to/your/client.crt
+#elasticsearch.ssl.key: /path/to/your/client.key
+#elasticsearch.ssl.certificateAuthorities: [ "/path/to/your/CA.pem" ]
+#elasticsearch.ssl.verificationMode: full
+
+pid.file: "{{pid_dir}}/kibana.pid"
+logging.dest: "{{log_dir}}/kibana.log"
+#logging.quiet: false
+#logging.verbose: false

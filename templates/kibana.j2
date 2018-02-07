@@ -1,0 +1,33 @@
+################################
+# kibana
+################################
+
+# Kibana home directory
+KB_HOME={{kb_home}}
+
+# Kibana configuration directory
+CONF_DIR={{conf_dir}}
+
+# Elasticsearc logs directory
+LOG_DIR={{log_dir}}
+
+# Kibana PID directory
+PID_DIR={{pid_dir}}
+
+
+# Configure restart on package upgrade (true, every other setting will lead to not restarting)
+#KB_RESTART_ON_UPGRADE=true
+
+################################
+# Kibana service
+################################
+
+# SysV init.d
+#
+# When executing the init script, this user will be used to run the Kibana service.
+# The default value is 'Kibana' and is declared in the init.d file.
+# Note that this setting is only used by the init script. If changed, make sure that
+# the configured user can read and write into the data, work, plugins and log directories.
+# For systemd service, the user is usually configured in file /usr/lib/systemd/system/Kibana.service
+kb_user={{kb_user}}
+kb_group={{kb_group}}

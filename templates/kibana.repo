@@ -1,0 +1,11 @@
+[kibana-{{ kb_major_version }}]
+name=Kibana repository for {{ kb_major_version }} packages
+baseurl=https://artifacts.elastic.co/packages/{{ kb_major_version }}/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+{% if kb_proxy_host is defined and kb_proxy_host != '' and kb_proxy_port is defined %}
+proxy=http://{{ kb_proxy_host }}:{{kb_proxy_port}}
+{% endif %}

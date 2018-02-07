@@ -1,0 +1,31 @@
+---
+- name: Ensure libselinux-python on CentOS 6.x
+  become: yes
+  yum: name=libselinux-python state=present update_cache=yes
+  when: ( ansible_distribution == "CentOS" ) and ( ansible_distribution_major_version == "6" )
+
+- name: RedHat - add kibana repo
+  become: yes
+  template: src=kibana.repo dest=/etc/yum.repos.d/kibana-{{ kb_major_version }}.repo
+  when: kb_use_repository
+
+- name: RedHat - include versionlock
+  include: kibana-RedHat-version-lock.yml
+  when: kb_version_lock
+
+- name: RedHat - Install kibana
+  become: yes
+  yum: name=kibana{% if kb_version is defined and kb_version != ""  %}-{{ kb_version }}{% endif %} state=present update_cache=yes
+  when: kb_use_repository
+  register: redhat_kibana_install_from_repo
+  notify: restart kibana
+  until: '"failed" not in redhat_kibana_install_from_repo'
+  retries: 5
+  delay: 10
+
+- name: RedHat - Install kibana from url
+  become: yes
+  yum: name={% if kb_custom_package_url is defined %}{{ kb_custom_package_url }}{% else %}{{ kb_package_url }}-{{ kb_version }}-x86_64.rpm{% endif %} state=present
+  when: not kb_use_repository
+  register: kibana_install_from_package
+  notify: restart kibana
